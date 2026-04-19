@@ -1,24 +1,18 @@
-# This will build the BCV repo and upload the package as an artifact
-
 name: Build BCV
-
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
   workflow_dispatch:
-
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
     strategy:
+      fail-fast: false
       matrix:
-        java: [ '8', '11', '17', '21', '25' ] # LTS versions
-
+        java: [ '8', '11', '17', '21', '25' ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK ${{ matrix.java }}
